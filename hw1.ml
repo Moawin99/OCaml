@@ -25,3 +25,20 @@ let slice lst i j =
     | h::t as l -> if n = 0 then l else remove (n-1) t
     in
     leave (j - i + 1) (remove i lst);; 
+
+(*Question 5*)
+let equivs f lst =
+    let rec checkPartition f head arr = match arr with 
+    | [] -> [[head]]
+    | h1::t -> match h1 with 
+        | [] -> []
+        | h::_ -> if (f h head) then (h1@[head])::t else h1::(checkPartition f head t)
+    in
+    let rec createPartition f tail array = match tail with
+    | [] -> array
+    | h::t -> createPartition f t (checkPartition f h array)
+    in 
+    match lst with
+    | [] -> []
+    | h::t -> (createPartition f t [[h]]);;
+
