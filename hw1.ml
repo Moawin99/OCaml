@@ -42,3 +42,18 @@ let equivs f lst =
     | [] -> []
     | h::t -> (createPartition f t [[h]]);;
 
+
+(*Question 6*)
+let goldbachpair num =
+   let prime n =
+    let rec checkZero x d = match d with
+        | 1 -> true    
+        | _ -> (x mod d <> 0) && checkZero x (d-1)
+    in match n with
+    | 0 | 1 -> false
+    | _ -> checkZero n (n-1)
+    in
+    let rec aux d =
+    if prime d && prime (num - d) then (d, num - d) else aux (d + 1) 
+    in
+    aux 2;;
