@@ -63,3 +63,6 @@ let goldbachpair num =
 let rec equiv_on f g lst = match lst with
 | [] -> true
 | h::t -> if ((f h) = (g h)) then equiv_on f g t else false;;
+
+
+(*Question 8*)
