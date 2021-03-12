@@ -57,3 +57,9 @@ let goldbachpair num =
     if prime d && prime (num - d) then (d, num - d) else aux (d + 1) 
     in
     aux 2;;
+
+
+(*Question 7*)
+let rec equiv_on f g lst = match lst with
+| [] -> true
+| h::t -> if ((f h) = (g h)) then equiv_on f g t else false;;
