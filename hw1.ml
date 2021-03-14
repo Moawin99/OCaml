@@ -1,7 +1,11 @@
 (*Question 1*)
-let rec pow x n = if n = 0 then x else pow (x*x) (n-1);;
+let rec pow x n = match n with 
+| 0 -> 1
+| _ ->  x * pow x (n-1);;
 
-let rec float_pow x n = if n = 0 then x else float_pow (x*.x) (n-1);;
+let rec float_pow x n = match n with
+| 0 -> 1.0
+| _ -> x *. float_pow x (n-1);;
 
 (*Question 2*)
 let rec compress = function
@@ -66,3 +70,16 @@ let rec equiv_on f g lst = match lst with
 
 
 (*Question 8*)
+let rec pairwisefilter f lst = match lst with
+| [] -> []
+| [fst] -> fst::[]
+| h::(b::e) -> (f h b)::pairwisefilter f e;;
+
+
+(*Question 9*)
+let rec polynomial lst e = match lst with
+| [] -> 0
+| (x,y)::t -> ((pow e y) * x) + polynomial t e;;
+
+
+(*Question 10*)
