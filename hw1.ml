@@ -83,3 +83,10 @@ let rec polynomial lst e = match lst with
 
 
 (*Question 10*)
+let rec powerset lst = 
+    let rec reduce f arr = match arr with
+    | [] -> []
+    | h::t -> (f::h)::reduce f t 
+    in match lst with
+    | [] -> [[]]
+    | h::t -> (powerset t) @ reduce h (powerset t);;
