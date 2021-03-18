@@ -100,19 +100,32 @@ type bool_expr =
     | Or of bool_expr * bool_expr;;
 
 let truth_table a b expr = 
-    let rec evaluate c c_val d d_val = function
+    let rec solve c c_val d d_val = function
     | Lit x -> if x = c then c_val else if x = d then d_val else failwith "Invalid expression"
-    | Not n -> evaluate c c_val d d_val n
-    | And(a1, a2) -> evaluate c c_val d d_val a1 && evaluate c c_val d d_val a2
-    | Or(o1, o2) -> evaluate c c_val d d_val o1 || evaluate c c_val d d_val o2
+    | Not n -> solve c c_val d d_val n
+    | And(a1, a2) -> solve c c_val d d_val a1 && solve c c_val d d_val a2
+    | Or(o1, o2) -> solve c c_val d d_val o1 || solve c c_val d d_val o2
     in 
-    [(true, true, evaluate a true b true expr);
-     (true, false, evaluate a true b false expr);
-     (false, true, evaluate a false b true expr);
-     (false, false, evaluate a false b false expr)];;
+    [(true, true, solve a true b true expr);
+     (true, false, solve a true b false expr);
+     (false, true, solve a false b true expr);
+     (false, false, solve a false b false expr)];;
 
 (*Question 12*)
 type expr =
     | Const of int
     | Var of string
-    | Plus 
+    | Plus of expr * expr
+    | Mult of expr * expr
+    | Minus of expr * expr
+    | Div of expr * expr;;
+
+let expression = Plus {arg1 = (Mult {arg1 = Const 2; arg2 = Var "x"});
+                       arg2 = (Mult {arg1 = Const 3; arg2 = (Minus {arg1 = Var "y"; arg2 = Const 1})})};;
+
+
+(*Question 13*)
+let evaluate expr = function
+| Const x -> 
+
+
